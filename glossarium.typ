@@ -42,7 +42,7 @@ SOFTWARE.*/
         let textLink = if display !=none {
             [#display]
         } else if (is_first or long == true) and entlong != [] and entlong != "" and long != false {
-          [#entry.short#suffix (#emph(entlong))]
+          [#entlong (#entry.short#suffix)]
         } else {
           [#entry.short#suffix]
         }
@@ -112,35 +112,14 @@ SOFTWARE.*/
                 let hasDesc = desc != "" and desc != []
 
                 {
-                  set text(weight: 600)
                   if hasLong {
-                    emph(entry.short) + [ -- ] + entry.long
+                    entry.short + [ -- ] + entry.long
                   }
                   else {
-                    emph(entry.short)
+                    entry.short
                   }
                 }
-                if hasDesc [: #desc ] else [. ]
-
-                term_references.map((x) => x.location())
-                .sorted(key: (x) => x.page())
-                .fold(
-                  (values: (), pages: ()),
-                  ((values, pages), x) => if pages.contains(x.page()) {
-                    (values: values, pages: pages)
-                  } else {
-                    values.push(x)
-                    pages.push(x.page())
-                    (values: values, pages: pages)
-                  },
-                )
-                .values
-                .map(
-                  (x) => link(
-                    x,
-                  )[#numbering(x.page-numbering(), ..counter(page).at(x))],
-                )
-                .join(", ")
+                if hasDesc [: #desc ]
               }
             },
           )
