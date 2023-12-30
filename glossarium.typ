@@ -38,7 +38,7 @@ SOFTWARE.*/
         let gloss = __query_labels_with_key(loc, key, before: true)
 
         let is_first = gloss == ();
-        let entlong = entry.at("long", default: "")
+        let entlong = entry.at("long")
         let textLink = if display !=none {
             [#display]
         } else if (is_first or long == true) and entlong != [] and entlong != "" and long != false {
@@ -80,8 +80,7 @@ SOFTWARE.*/
           (
             key: entry.key,
             short: entry.short,
-            long: entry.at("long", default: ""),
-            desc: entry.at("desc", default: ""),
+            long: entry.at("long"),
           ),
         )
       }
@@ -106,20 +105,7 @@ SOFTWARE.*/
             loc => {
               let term_references = __query_labels_with_key(loc, entry.key)
               if term_references.len() != 0 or show-all {
-                let desc = entry.at("desc", default: "")
-                let long = entry.at("long", default: "")
-                let hasLong = long != "" and long != []
-                let hasDesc = desc != "" and desc != []
-
-                {
-                  if hasLong {
-                    entry.short + [ -- ] + entry.long
-                  }
-                  else {
-                    entry.short
-                  }
-                }
-                if hasDesc [: #desc ]
+                entry.short + [ -- ] + entry.long
               }
             },
           )
