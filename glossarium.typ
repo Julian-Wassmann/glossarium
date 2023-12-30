@@ -90,7 +90,7 @@ SOFTWARE.*/
   )
 
   let glossary = entries
-    .sorted(key: (x) => x.key)
+    .sorted(key: (x) => x.short)
     .map(entry => {
       ([
       #show figure.where(kind: __glossarium_figure): it => it.caption
