@@ -71,7 +71,7 @@ SOFTWARE.*/
   body
 }
 
-#let print-glossary(entries) = {
+#let print-glossary(entries, doubleColumns: false) = {
   __glossary_entries.update(
     (x) => {
       for entry in entries {
@@ -104,8 +104,19 @@ SOFTWARE.*/
       entry.long)
   })
 
+  let columns = 2
+  let column-gutter = (10pt)
+  if doubleColumns {
+    columns = 4
+    column-gutter = (10pt, 30pt, 10pt)
+  }
+
   table(
-    columns: 2,
+    columns: columns,
+    stroke: none,
+    inset: 0pt,
+    column-gutter: column-gutter,
+    row-gutter: 10pt,
     ..glossary.flatten(),
   )
 };
