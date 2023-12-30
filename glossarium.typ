@@ -71,7 +71,7 @@ SOFTWARE.*/
   body
 }
 
-#let print-glossary(entries, show-all: false) = {
+#let print-glossary(entries) = {
   __glossary_entries.update(
     (x) => {
       for entry in entries {
@@ -89,30 +89,23 @@ SOFTWARE.*/
     },
   )
 
-  for entry in entries.sorted(key: (x) => x.key) {
-    [
-    #show figure.where(kind: __glossarium_figure): it => it.caption
-    #par(
-      hanging-indent: 1em,
-      first-line-indent: 0em,
-    )[
+  let glossary = entries
+    .sorted(key: (x) => x.key)
+    .map(entry => {
+      ([
+      #show figure.where(kind: __glossarium_figure): it => it.caption
       #figure(
         supplement: "",
         kind: __glossarium_figure,
         numbering: none,
-        caption: {
-          locate(
-            loc => {
-              let term_references = __query_labels_with_key(loc, entry.key)
-              if term_references.len() != 0 or show-all {
-                entry.short + [ -- ] + entry.long
-              }
-            },
-          )
-        },
+        caption: entry.short,
       )[] #label(entry.key)
-      ]
-    #parbreak()
-    ]
-  }
+      ],
+      entry.long)
+  })
+
+  table(
+    columns: 2,
+    ..glossary.flatten(),
+  )
 };
