@@ -104,19 +104,17 @@ SOFTWARE.*/
       entry.long)
   })
 
-  let columns = 2
-  let column-gutter = (10pt)
+  let columns = (auto, 1fr)
   if doubleColumns {
-    columns = 4
-    column-gutter = (10pt, 30pt, 10pt)
+    columns = (auto, 1fr, auto, 1fr)
   }
 
   table(
     columns: columns,
     stroke: none,
     inset: 0pt,
-    column-gutter: column-gutter,
-    row-gutter: 10pt,
+    column-gutter: 20pt,
+    row-gutter: 18pt,
     ..glossary.flatten(),
   )
 };
