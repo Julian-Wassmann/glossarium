@@ -109,10 +109,8 @@ SOFTWARE.*/
     columns = (auto, 1fr, auto, 1fr)
   }
 
-  table(
+  grid(
     columns: columns,
-    stroke: none,
-    inset: 0pt,
     column-gutter: 20pt,
     row-gutter: 18pt,
     ..glossary.flatten(),
