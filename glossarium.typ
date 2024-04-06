@@ -94,6 +94,7 @@ SOFTWARE.*/
     .map(entry => {
       ([
       #show figure.where(kind: __glossarium_figure): it => it.caption
+      #show figure.caption.where(kind: __glossarium_figure): figCaption => figCaption.body
       #figure(
         supplement: "",
         kind: __glossarium_figure,
